@@ -1,0 +1,22 @@
+.Lcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.Lcont {
+  width: 30%;
+}
+
+.FormCont {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 425px) {
+  .Lcont {
+    width: 90%;
+  }
+}
