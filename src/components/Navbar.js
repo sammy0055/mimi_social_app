@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/Navbar.css";
 import { Link } from "react-router-dom";
+import dayjs from "dayjs";
 import {
   AppBar,
   Toolbar,
@@ -15,13 +16,14 @@ import Notifications from "@material-ui/icons/Notifications";
 
 import { useRedux } from "../redux/Redux";
 import PostScream from "./PostScream";
+import ImageCropDialog from "./ImageCropDialog";
 
 function Navbar() {
-  const [{ expired }, dispatch] = useRedux();
+  const [{ expired, token }, dispatch] = useRedux();
   return (
     <AppBar>
       <Toolbar className="Btn-Container">
-        {expired ? (
+        {expired || !token ? (
           <>
             {" "}
             <Button color="inherit" component={Link} to="/home">
@@ -37,28 +39,19 @@ function Navbar() {
             <Button color="inherit" component={Link} to="/signUp">
               Sign-Up
             </Button>
-            <Notification />
+            <ImageCropDialog />
           </>
         ) : (
           <>
-            {/* <Tooltip title="Post A Scream" placement="top">
-              <IconButton>
-                <AddIcon color="inherit" />
-              </IconButton>
-            </Tooltip> */}
             <PostScream />
 
             <Tooltip title="Home" placement="top">
               <IconButton>
-                <HomeIcon color="inherit" />
+                <HomeIcon color="inherit" style={{ color: "white" }} />
               </IconButton>
             </Tooltip>
 
-            <Tooltip title="notification" placement="top">
-              <IconButton>
-                <Notifications color="inherit" />
-              </IconButton>
-            </Tooltip>
+            <Notification />
           </>
         )}
       </Toolbar>

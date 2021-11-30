@@ -8,11 +8,11 @@ import LocationOn from "@material-ui/icons/LocationOn";
 import CalendarToday from "@material-ui/icons/CalendarToday";
 import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
 import EditIcon from "@material-ui/icons/Edit";
-import sammy from "../assets/sammy.jpg";
 import { uploadImg, user } from "./apiCalls";
 import { useRedux } from "../redux/Redux";
 import Editdetails from "./Editdetails";
 import { useHistory } from "react-router-dom";
+import moment from "moment";
 
 const useStyles = makeStyles({
   paper: {
@@ -89,7 +89,7 @@ function Profile({ userHandle, bio, website, createdAt, location, image }) {
           {createdAt && (
             <>
               <CalendarToday color="inherit" />
-              <span>{createdAt}</span>
+              <span>{moment(createdAt).format("MMMM Do YYYY, h:mm:ss a")}</span>
               <div>
                 <Tooltip title="logOut" placement="top">
                   <IconButton onClick={handleLogOut}>

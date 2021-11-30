@@ -45,7 +45,7 @@ const reducer = (state, action) => {
     case "Comment":
       return { ...state, comment: action.value };
 
-    case "notification":
+    case "notifications":
       return { ...state, notifications: action.value };
 
     case "comtoggle":

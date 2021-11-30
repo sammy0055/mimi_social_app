@@ -9,21 +9,22 @@ const {
 } = require("../schema/schema");
 const { FBAuth } = require("./write");
 const read = express.Router();
-
-read.use(cors({ origin: "http://localhost:3000" }));
+read.use(cors({ origin: true }));
 
 //getAllstreams-------------------------------------------
 read.get("/getAllStream", (req, res) => {
   Streams.find()
     .sort({ createdAt: -1 })
     .limit(10)
-    .then((response) => res.send(response))
+    .then((response) => res.status(200).send(response))
     .catch((err) => {
       if (
         err.message ==
         `Cast to ObjectId failed for value "124cf564" at path "_id" for model "Streams"`
       ) {
         res.status(400).json({ error: "user not found" });
+      } else {
+        res.status(404).json({ error: err.message });
       }
     });
 });
@@ -95,8 +96,8 @@ read.get("/likes/:streamId", FBAuth, (req, res) => {
         Streams.find({ _id: req.params.streamId })
           .then((data) => {
             streamData = data[0];
+            likeNotify(req.params.streamId, streamData, req);
             incrementCount(req.params.streamId, streamData.likeCount + 1);
-            likeNotify(req.params.streamId, streamData, res);
           })
           .catch((err) => res.status(404).json({ error: err.message }));
 
@@ -105,7 +106,7 @@ read.get("/likes/:streamId", FBAuth, (req, res) => {
         res.status(404).json({ error: "allready liked" });
       }
     })
-    .catch();
+    .catch((err) => console.error(err.message));
 });
 
 /// test route
@@ -113,7 +114,7 @@ read.get("/likes/:streamId", FBAuth, (req, res) => {
 //   res.send("who you be");
 // });
 
-function likeNotify(id, data, res) {
+function likeNotify(id, data, req) {
   const notify = {
     recipiant: data.userHandle,
     sender: req.user.handle,
@@ -128,6 +129,8 @@ function likeNotify(id, data, res) {
   });
   p.then().catch((err) => res.status(400).json({ error: err.mesage }));
 }
+
+// likeNotify();
 
 const addLike = (req) => {
   const p = new Promise((resolve, reject) => {

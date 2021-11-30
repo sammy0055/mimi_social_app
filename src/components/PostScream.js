@@ -70,7 +70,7 @@ function PostScream() {
       <>
         <Tooltip title="Post A Scream" placement="top">
           <IconButton onClick={handleToggle}>
-            <AddIcon color="inherit" />
+            <AddIcon style={{ color: "white" }} />
           </IconButton>
         </Tooltip>
         <Dialog open={toggle} onClose={handleToggle}>

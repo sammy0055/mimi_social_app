@@ -13,7 +13,7 @@ const write = express.Router();
 
 admin.initializeApp();
 write.use(express.json());
-write.use(cors({ origin: "http://localhost:3000" }));
+write.use(cors({ origin: true }));
 
 //verification of user token
 const FBAuth = (req, res, next) => {
@@ -116,7 +116,7 @@ write.post("/Addcomment/:streamId", FBAuth, (req, res) => {
         recipiant: data.userHandle,
         sender: req.user.handle,
         type: "comment",
-        read: true,
+        read: false,
         streamId: id,
       };
       const p = new Promise((resolve, reject) => {

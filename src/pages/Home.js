@@ -4,7 +4,11 @@ import { Grid } from "@material-ui/core";
 import Scard from "../components/Scard";
 import { useRedux } from "../redux/Redux";
 import Profile from "../components/Profile";
-import { getAllStream, getlikeStream, getNotification } from "../components/apiCalls";
+import {
+  getAllStream,
+  getlikeStream,
+  getNotification,
+} from "../components/apiCalls";
 import Comment from "../components/Comment";
 
 function Home() {
@@ -20,14 +24,12 @@ function Home() {
         setError(err.response?.data);
       });
 
-    getNotification(token)
-      .then((res) => {
-        dispatch({ type: "notifications", value: res.data });
-      })
-      .catch((err) => console.log(err.response?.data));
-
     getlikeStream(token)
       .then((res) => dispatch({ type: "Like stream", value: res.data }))
+      .catch((err) => console.log(err.response?.data));
+
+    getNotification(token)
+      .then((res) => dispatch({ type: "notifications", value: res.data }))
       .catch((err) => console.log(err.response?.data));
   }, []);
 

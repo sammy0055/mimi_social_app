@@ -79,6 +79,16 @@ export const postStream = (token, _data) => {
 export const getNotification = (token) => {
   return axios({
     method: "GET",
+    url: "/getNotifications",
+    headers: { Authorization: token },
+  });
+};
+
+//mark notification read
+export const makeNotificationRead = (token) => {
+  return axios({
+    method: "GET",
+    url: "/markNotificationRead",
     headers: { Authorization: token },
   });
 };

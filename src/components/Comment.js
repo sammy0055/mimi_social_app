@@ -101,11 +101,10 @@ function Comment() {
           <div>
             {comment?.map((data) => (
               <>
-              
                 <Card key={comToggle.streamId} className={classes.card}>
                   <CardMedia
                     className={classes.image}
-                    image={sammy}
+                    image={data.imageUrl}
                     title="profile image"
                   />
                   <CardContent className={classes.content}>

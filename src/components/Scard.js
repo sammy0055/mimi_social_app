@@ -132,7 +132,7 @@ function Scard({
     <Card className={classes.card}>
       <CardMedia
         className={classes.image}
-        image={sammy}
+        image={imageUrl}
         title="profile image"
       />
       <CardContent className={classes.content}>
